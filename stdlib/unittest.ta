@@ -1,0 +1,21 @@
+;; Test toolbox providing methods used in test scripts
+
+;; Basic assertion
+(defun [assert value expected string] [if (== value expected) [do (print (append string "......OK"))  (set [testStepResult] (and testStepResult #t))] [do (print (append string "......KO")) (print "Expected value:" expected "Received Value:" value   )  (set [testStepResult] (and testStepResult #f))]])
+
+;; Test Step definition
+(def [testResult] #t)
+(def [testStepResult] #t)
+(def [testStepName] "")
+(def [testStepNb] 1)
+
+(defun [printTest x] [print "# TEST CASE:    " x])
+(defun [printStep string] [do (set [testStepName] string) (print "## Test step" (list (testStepNb)) "->"  string)])
+(defun [printStepResult] [do
+                             (print "## Test step"  (list (testStepNb)) "result.........." (if (== testStepResult #t) ["OK"] ["KO"]))
+                             (set [testStepNb] (+ testStepNb 1))
+			     (set [testResult] (and testStepResult testResult))
+			     (set [testStepResult] #t)])
+
+
+(defun [printTestResult] [(if (== testResult #t) [print "# TEST SUCCESSFUL" (- testStepNb 1) "Steps executed"] [print "# TEST FAILED..."]) (print "")])

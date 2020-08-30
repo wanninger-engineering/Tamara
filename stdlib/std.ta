@@ -1,0 +1,83 @@
+(def [nil] [])
+(def [true] #t)
+(def [false] #f)
+
+;;;;;;;;;;;;;; List functions
+;;First, second and thirst item in list
+(defun [first l] [eval (head l) ])
+(defun [second l] [eval (head (tail l)) ])
+(defun [third l] [eval (head (tail (tail l))) ])
+
+
+;;Nth item in List
+(defun [nth n l]
+  [if (== n 0)
+      [first l]
+      [nth (- n 1) (tail l)]])
+;;Last item in list
+(defun [last l] [nth (- (len l) 1) l])
+
+;;Take N items
+(defun [take n l]
+  [if (== n 0)
+      [nil]
+      [join (head l) (take (- n 1) (tail l))]])
+;;Drop N items
+(defun [drop n l]
+  [if (== n 0)
+      [l]
+      [drop (- n 1) (tail l)]])
+
+;;Split at N
+(defun [split n l]
+  [list (take n l) (drop n l)])
+
+;;Element of List
+(defun [elem x l]
+  [if (== l nil)
+      [false]
+      [if (== x (first l)) [true] [elem x (tail l)]]])
+
+;;;;;;;;;;;;;; Utility functions
+;;Map - Apply function to list
+(defun [map f l]
+  [if (== l nil)
+      [nil]
+      [join (list (f (first l))) (map f (tail l))]])
+
+;;Apply filter to list
+(defun [filter f l]
+  [if (== l nil)
+      [nil]
+      [join (if (f (first l)) [head l] [nil]) (filter f (tail l))]])
+
+;;Fold left
+(defun [foldl f z l]
+  [if (== l nil)
+      [z]
+      [foldl f (f z (firstl)) (tail l)]])
+
+(defun [sum l] [foldl + 0 l])
+(defun [product l] [foldl * 1 l])
+      
+
+;;Unpack list for function
+(defun [unpack f l]
+  [eval (join (list f) l)])
+
+;;Pack list for function
+(defun [pack f & xs] [f xs])
+
+;;Curried and uncurried calling
+(def [curry] unpack)
+(def [uncurry] pack)
+
+;;Perform several things in a sequence
+(defun [do & l] [
+	       if (== l nil)
+		  [nil]
+		  [last l]
+		  ])
+;;Open a new scope
+(defun [let bind expr] [((lambda [_] [do ( eval bind )(eval expr)])())])
+

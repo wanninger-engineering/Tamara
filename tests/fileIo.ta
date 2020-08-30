@@ -1,0 +1,28 @@
+(require "unittest.ta")
+
+(require "file.ta")
+
+(printTest "Test of File Access")
+(printStep "Test of file writing and reading")
+
+(def [testchars] ["a" "\n" "b"])
+
+(def [testfile] (file->open "test.txt" "w"))
+
+(map (lambda [c] [file->writechar testfile c]) testchars)
+
+(file->close testfile)
+
+(def [testfile] (file->open "test.txt" "r"))
+
+(map (lambda [c] [assert (file->readchar testfile) c "Char as written"]) testchars)
+
+(file->close testfile)
+
+(printStepResult)
+(printStep "Test file not readable")
+
+(assert (type (file-open "not there" "r")) "Error" "Error raised when file not opened")
+
+(printStepResult)
+(printTestResult)

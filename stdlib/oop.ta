@@ -1,0 +1,64 @@
+
+;;;;;;;;;;;;;; Object Oriented
+;; Special selector for methods and attributes. works same as case
+(defun [method-select x v & cs]
+  [(if (== cs nil)
+      [error "No such method/attribute"]
+      [if (== x (first (first cs)))
+      [(second (first cs))]
+      [(unpack method-select (join (list x) (list v) (tail cs)))]])])
+
+(defun [arg n input] [nth n (first input)]) 
+
+(defun [method-update x v & cs]
+       [(curry (lambda [this methods method & arguments]
+	  [(curry (method-select method arguments) methods)])
+       (list (replace-att x v (first cs)) (second cs)))
+       ])
+
+(defun [replace-att x val object]
+       [
+       (if (== object nil)
+	   [nil]
+	 [(if (== x (first (first object)))
+	      [join (list (list x val)) (tail object)]
+	    [join (head object) (replace-att x val (tail object))]
+	      )
+	 ])
+       ])
+
+;; Method to create a new class
+;; This takes a quoted lambda expression as constructor and
+;; a list of key value pairs. Key is a symbol of a "method" and the
+;; value is an S expression
+(defun [class base constructor methods] 
+       [if (== base [])
+       [list
+	(lambda [this  methods method & args] [(curry (method-select method args) methods)])
+	methods
+	(eval constructor)]
+	[list
+	(lambda [this  methods method & args] [(curry (method-select method args) methods)])
+	(join methods (second base))
+	(eval constructor)]
+	]
+)
+        
+;; The new method creates a new instance of the class by calling
+;; the constructor on the arguments and so creating the "this"
+;; structure. The class lambda expression is then partially 
+;; evaluated with the this structure and the method list
+(defun [new class & args]
+    [(first class) (curry (third class) args) (second class)])
+ 
+;; Method used to call a method from the same class
+(defun [self method & args] [(curry (method-select method args) methods)])
+
+;; Attribute getter method
+(defun [get attribute] [curry (method-select attribute nil ) this])
+
+(defun [modify attribute val] [(curry (method-update attribute val) (list this methods))])
+
+
+;; Abstract definition
+(def [abstract] (error "MethodNotImplemented"))

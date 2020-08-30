@@ -1,0 +1,9 @@
+(print [Loading standard library])
+
+;; Don't change the order of requires
+(require "std.ta")
+(require "conditionals.ta")
+(require "exception.ta")
+
+ 
+(print [Done])

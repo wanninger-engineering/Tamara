@@ -1,0 +1,34 @@
+(require "unittest.ta")
+
+(printTest "Test of exception handling")
+(printStep "Test of try expect Method")
+
+(defun [test x]
+  [cond [(== x 1) (error "err1" "")]
+  [(== x 2) (error "err2" "")]
+  [else "test"]])
+
+(assert
+ (try-expect [test 1] (error "err1" "") [5])
+ 5
+ "exception catched")
+
+(assert
+ (try-expect [test 2] (error "err2" "") [5])
+ 5
+ "exception catched")
+
+
+(assert
+ (try-expect [test 2] (error "err1" "") [5])
+ (error "err2")
+ "exception not catched")
+
+(assert
+ (try-expect [test 3] (error "err1" "") [5])
+ "test"
+ "exception not catched")
+
+
+(printStepResult)
+(printTestResult)

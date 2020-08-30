@@ -1,0 +1,41 @@
+(require "unittest.ta")
+
+(printTest "Test of scoping")
+(printStep "Test of custom let")
+
+(def [test-global1] 1)
+(def [test-global2] 2)
+(def [test-global3] 3)
+(def [test-global4] 4)
+
+(def [a] test-global1)
+(def [b] test-global2)
+
+(let [(= [a] test-global3) (= [b] test-global4)] [do (assert a test-global3 "new value inside let") (assert b test-global4 "new value inside let")])
+
+(let [(= [a] test-global3)] [let [(= [b] test-global4)] 
+[do (assert a test-global3 "new value inside let") (assert b test-global4 "new value inside let")]])
+
+(let [(= [a] test-global3)] [let [(= [a] test-global4)] 
+[do (assert a test-global4 "new value inside let")]])
+
+(assert a test-global1 "Global not modified")
+(assert b test-global2 "global not modified")
+
+(printStepResult)
+
+(printStep "Nested function declaration")
+(def [testvar] 1)
+(defun [test-set] [set [testvar] 2])
+(test-set)
+(assert testvar 2 "Modified by global method")
+
+(defun [test-outer] [do (defun [test-set] [set [testvar] 5]) (test-set)])
+(test-outer)
+
+(assert testvar 5 "Modified by local method")
+(test-set)
+(assert testvar  2 "Modified by global method again")
+
+(printStepResult)
+(printTestResult)

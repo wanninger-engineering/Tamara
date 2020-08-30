@@ -1,0 +1,61 @@
+(require "unittest.ta")
+
+(printTest "Test of conditional methods")
+(printStep "Test of select Method")
+(defun [month-day-suffix i] [
+			     cond
+			     [(== i 1) "st"]
+			     [(== i 2) "nd"]
+			     [(== i 3) "rd"]
+			     [otherwise "th"]
+			     ])
+
+(assert (month-day-suffix 1) "st" "Suffix of first day in month")
+(assert (month-day-suffix 2) "nd" "Suffix of second day in month")
+(assert (month-day-suffix 3) "rd" "Suffix of third day in month")
+(assert (month-day-suffix 4) "th" "Suffix of other day in month")
+
+(printStepResult)
+
+
+(printStep "Test of case method")
+(defun [day-name x]
+  [case x
+    [0 "Monday"]
+    [1 "Tuesday"]
+    [2 "Wednesday"]
+    [3 "Thursday"]
+    [4 "Friday"]
+    [5 "Saturday"]
+    [6 "Sunday"]
+    ])
+
+(assert (day-name 0) "Monday" "Day name Monday correct")
+(assert (day-name 1) "Tuesday" "Day name Tuesday correct")
+(assert (day-name 2) "Wednesday" "Day name Wednesday correct")
+(assert (day-name 3) "Thursday" "Day name Thursday correct")
+(assert (day-name 4) "Friday" "Day name Friday correct")
+(assert (day-name 5) "Saturday" "Day name Saturday correct")
+(assert (day-name 6) "Sunday" "Day name Sunday correct")
+
+(printStepResult)
+
+(printStep "Test the fibonacci number implemented with select")
+;;;;;;;;;;;;;; Fibonacci
+(defun [fib n]
+  [select
+   [(== n 0) 0]
+   [(== n 1) 1]
+   [otherwise (+ (fib (- n 1)) (fib (- n 2)))]])
+(def [testInput] [0 1 1 2 3 5 8 13 21 34 55 89 144])
+
+(def [cnt] 0)
+(defun [testLoop input] [if (== input nil)
+                            []
+                            [do (assert (fib cnt) (first input) "Correct fibonacci number")
+                                (set [cnt] (+ cnt 1))
+                              (testLoop (tail input))]])
+(testLoop testInput)
+(printStepResult)
+
+(printTestResult)

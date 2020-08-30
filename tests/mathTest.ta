@@ -1,0 +1,30 @@
+(require "unittest.ta")
+
+(require "math.ta")
+
+(printTest "Test of math functions")
+(printStep "Test of rand")
+
+(def [RAND_MAX] 32767 )
+
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+(def [randomNum] (mod (math->rand) RAND_MAX))
+(assert (and (< randomNum RAND_MAX) (> randomNum 0)) #t "rand function in range 0 .. 32767")
+
+
+
+(printStepResult)
+(printTestResult)

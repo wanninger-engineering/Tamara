@@ -1,0 +1,7 @@
+
+;;;;;;;;;;;;;; exception handling
+(defun [try-expect expr err catch]
+       [do (def [result] (eval expr))
+       (if (== result err)
+	   [eval catch]
+	   [result])])

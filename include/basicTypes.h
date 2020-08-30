@@ -1,0 +1,1 @@
+#define PARAM_NOT_USED(param) (void)(param)
