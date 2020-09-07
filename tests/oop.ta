@@ -129,39 +129,4 @@
 
 (printStepResult)
 
-(printStep "Call by reference")
-
-(defun [testfun x] [append (eval x) "1"])
-(def [teststring] "test")
-(assert (testfun [teststring]) "test1" "appended via call by reference")
-
-(def [testclass] (class []
-			[lambda [attr] [list (list [attr] attr)]]
-			[
-			[[appendToAttr]
-			(append ((eval (get [attr])) [getString] nil) "1")]
-			[[modifyRef]
-			((eval (get [attr])) [setString] ["blub"])]
-			]
-			))
-(def [teststringclass] (class []
-			      [lambda [string] [list (list [string] string)]]
-			      [
-			      [[getString]
-			      (get [string])]
-			      [[setString]
-			      (modify [string] (arg 0 v))]
-			      ]
-			      ))
-
-(def [newstring] (new teststringclass "test"))
-
-(def [testobject] (new testclass [newstring]))
-
-(assert ((eval [newstring]) [getString] nil) "test" "String can be retrieved")
-(assert (testobject [appendToAttr] "1") "test1" "correctly appended")
-(assert (testobject [modifyRef] nil) "" "correctly modified reference")
-
-(printStepResult)
-
 (printTestResult)
