@@ -1,8 +1,12 @@
 title: Tamara Interpreter
 description: 
 google_analytics: 
-show_downloads: false
+show_downloads: true
 theme: jekyll-theme-hacker
+
+github:
+  zip_url: https://github.com/wanninger-engineering/Tamara/archive/v0.1.0.zip
+  tar_url: https://github.com/wanninger-engineering/Tamara/archive/v0.1.0.tar.gz
 
 gems:
   - jekyll-mentions
