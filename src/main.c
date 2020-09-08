@@ -62,7 +62,7 @@ int main(int argc, char** argv)
   else
   {
     /* Print Version and Exit Information */
-    puts("Tamara Interpreter Version 1.0.0");
+    puts("Tamara Interpreter Version 0.1.0");
     puts("Use Ctrl-c or (exit) to Exit\n");
     /* In a never ending loop */
     while (e->toKill == 0)
