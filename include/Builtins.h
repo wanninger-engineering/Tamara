@@ -31,6 +31,7 @@ lval* builtin_div(lenv* e, lval* a);
 lval* builtin_modulo(lenv* e, lval* a);
 lval* builtin_local_def(lenv* e, lval* a);
 lval* builtin_global_def(lenv* e, lval* a);
+lval* builtin_uplevel(lenv* e, lval* a);
 lval* builtin_set(lenv* e, lval* a);
 lval* builtin_exit(lenv* e, lval* a);
 lval* builtin_lambda(lenv* e, lval* a);
