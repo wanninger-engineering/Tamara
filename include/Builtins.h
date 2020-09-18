@@ -57,15 +57,10 @@ lval* builtin_env(lenv* e, lval* a);
 lval* builtin_strToNum(lenv* e, lval* a);
 lval* builtin_numToStr(lenv* e, lval* a);
 lval* builtin_input(lenv* e, lval* a);
-lval* builtin_system(lenv* e, lval* a);
 lval* builtin_indexOf(lenv* e, lval* a);
 lval* builtin_substring(lenv* e, lval* a);
 lval* builtin_strlen(lenv* e, lval* a);
 lval* builtin_append(lenv* e, lval* a);
-lval* builtin_fileOpen(lenv* e, lval* a);
-lval* builtin_fileClose(lenv* e, lval* a);
-lval* builtin_readchar(lenv* e, lval* a);
-lval* builtin_writechar(lenv* e, lval* a);
-lval* builtin_chdir(lenv* e, lval* a);
+
 
 #endif /* _BUILTINS_H_ */

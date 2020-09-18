@@ -8,28 +8,8 @@
 #include "Environment.h"
 #include "Builtins.h"
 #include "Lval.h"
-#include "Curl.h"
-#include "Maths.h"
 
-struct lenv_packages packages []=
-  {
-   { "file", lenv_reg_file},
-   { "curl", lenv_reg_curl},
-   { "math", lenv_reg_math},
-   { "os", lenv_reg_os}
-  };
 
-void lenv_register(lenv* e, char* name)
-{
-  int i = 0;
-  for (i=0; i<(sizeof(packages)/sizeof(struct lenv_packages)); i++)
-    {
-      if (strcmp(name, packages[i].name) == 0)
-	{
-	  (*packages[i].reg_fun)(e);
-	}
-    }
-}
 
 lenv* lenv_new(void)
 {
@@ -224,30 +204,6 @@ void lenv_add_builtins(lenv* e) {
   lenv_add_builtin(e, "env",   builtin_env);
 }
 
-void lenv_reg_file(lenv* e)
-{
-  lenv_add_builtin(e, "file->open", builtin_fileOpen);
-  lenv_add_builtin(e, "file->close", builtin_fileClose);
-  lenv_add_builtin(e, "file->readchar", builtin_readchar);
-  lenv_add_builtin(e, "file->writechar", builtin_writechar);
-}
-
-void lenv_reg_curl(lenv* e)
-{
-  lenv_add_builtin(e, "curl->check", curl_checkErrCode);
-  lenv_add_builtin(e, "curl->url2file", curl_url2file);
-}
-
-void lenv_reg_math(lenv* e)
-{
-  lenv_add_builtin(e, "math->rand", math_rand);
-}
-
-void lenv_reg_os(lenv* e)
-{
-  lenv_add_builtin(e, "system",   builtin_system);
-  lenv_add_builtin(e, "chdir", builtin_chdir);
-}
 
 void lenv_toKill(lenv* e)
 {
