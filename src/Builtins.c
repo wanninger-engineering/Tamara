@@ -24,6 +24,7 @@ lval* builtin_cmp(lenv* e, lval* a, const char* op);
 
 lval* builtin_op(lenv* e, lval* a, const char* op)
 {
+      LASSERT(a, a->count > 0,  "IncorrectNumberArgs", "Function got no parameters but expexted 1 or more");
 	PARAM_NOT_USED(e);
 	/* ensure all arguments are numbers */
 	for (int i = 0; i < a->count; i++)
