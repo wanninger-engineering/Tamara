@@ -4,18 +4,11 @@
  *  Created on: May 18, 2020
  *      Author: Sascha Wanninger
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+
 
 #include <curl/curl.h>
 
-#include "basicTypes.h"
-#include "ParserDefinition.h"
 #include "Curl.h"
-#include "Lval.h"
-#include "Environment.h"
 
 lval* curl_checkErrCode(lenv* e, lval* a) {
     LASSERT_NUM("curl_checkErrCode", a, 1);

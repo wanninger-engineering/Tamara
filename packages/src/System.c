@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
-#include "basicTypes.h"
-#include "ParserDefinition.h"
-#include "Builtins.h"
-#include "Lval.h"
-#include "Environment.h"
+#include "System.h"
 
 
 lval* builtin_system(lenv* e, lval* a)
