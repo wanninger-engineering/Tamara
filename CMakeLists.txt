@@ -10,7 +10,7 @@ include_directories(include packages/include)
 file(GLOB SOURCES "src/*.c")
 file(GLOB PACK_SOURCES "packages/src/*.c")
 
-add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_CURL -DPACKAGE_MATH)
+add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MATH)
 
 add_executable(tamara ${SOURCES} ${PACK_SOURCES})
 target_link_libraries(tamara readline m curl)
