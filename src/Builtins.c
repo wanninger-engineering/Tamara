@@ -62,7 +62,6 @@ lval* builtin_op(lenv* e, lval* a, const char* op)
 		}
 		 if (strcmp(op, "min") == 0) { x->num = (x->num < y->num) ? x->num : y->num ; }
 		 if (strcmp(op, "max") == 0) { x->num = (x->num > y->num) ? x->num : y->num; }
- 		if (strcmp(op, "^") == 0) { x->num = pow(x->num, y->num); }
  		if (strcmp(op, "%") == 0)  { x->num =  ((int)x->num) % ((int) y->num); }
 
 		lval_del(y);
