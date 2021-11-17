@@ -258,7 +258,12 @@ lval* lval_lambda(lenv* e, lval* formals, lval* body) {
   v->builtin = NULL;
 
   /* Build new environment */
-  v->env = lenv_new();
+  if (e->par == NULL) {
+      v->env = lenv_new();
+  }
+  else {
+      v->env = lenv_copy(e);
+  }
   v->env->par = e;
 
   /* Set Formals and Body */

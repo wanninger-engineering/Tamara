@@ -38,4 +38,39 @@
 (assert testvar  2 "Modified by global method again")
 
 (printStepResult)
+
+(printStep "Return function as result")
+
+(defun [create x] [lambda [a] [+ x a]])
+
+(def [testcreate] (create 8))
+(def [testcreate2] (create 10))
+
+(assert (testcreate 1) 9 "create works")
+(assert (testcreate2 1) 11 "create works")
+
+
+(printStepResult)
+
+(printStep "Correct reference to global scope")
+(def [x] 10)
+(defun [testglobal v] [+ x v])
+
+(assert (let [(= x 20)] [testglobal 10]) 20 "correct scope referenced")
+
+(printStepResult)
+
+(printStep "Lexical scoping")
+
+(def [test] (let [(= [a] 1)
+		 (= [b] 2)
+		 (= [f] (lambda [] [F]))
+		 (= [g] (lambda [c] [G]))]
+		 [lambda [d] [+ (f) (g b)]]))
+
+(def [F] 10)
+(def [G] 20)
+(assert (test 4) 30 "Scoping example works")
+(printStepResult)
+
 (printTestResult)
