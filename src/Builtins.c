@@ -62,7 +62,6 @@ lval* builtin_op(lenv* e, lval* a, const char* op)
 		}
 		 if (strcmp(op, "min") == 0) { x->num = (x->num < y->num) ? x->num : y->num ; }
 		 if (strcmp(op, "max") == 0) { x->num = (x->num > y->num) ? x->num : y->num; }
- 		if (strcmp(op, "^") == 0) { x->num = pow(x->num, y->num); }
  		if (strcmp(op, "%") == 0)  { x->num =  ((int)x->num) % ((int) y->num); }
 
 		lval_del(y);
@@ -314,6 +313,23 @@ lval* builtin_eval(lenv* e, lval* a)
   lval* x = lval_take(a, 0);
   x->type = LVAL_SEXPR;
   return lval_eval(e, x);
+}
+
+lval* builtin_uplevel(lenv* e, lval* a)
+{
+  LASSERT_NUM("uplevel", a, 2);
+  LASSERT_TYPE("uplevel", a, 0, LVAL_NUM);
+  LASSERT_TYPE("uplevel", a, 1, LVAL_QEXPR);
+
+  lenv* upEnv = e;
+  lval* number = lval_pop(a, 0);
+  for (int i=0; i<number->num; i++)
+  {
+      if (upEnv->par != NULL) upEnv = upEnv->par;
+  }
+  lval* x = lval_take(a, 0);
+  x->type = LVAL_SEXPR;
+  return lval_eval(upEnv, x);
 }
 
 lval* builtin_readstr(lenv* e, lval* a)

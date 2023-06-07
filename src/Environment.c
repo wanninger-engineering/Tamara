@@ -179,7 +179,8 @@ void lenv_add_builtins(lenv* e) {
   lenv_add_builtin(e, "put",  builtin_global_def);
   lenv_add_builtin(e, "=",  builtin_local_def);
   lenv_add_builtin(e, "def",  builtin_local_def);
- lenv_add_builtin(e, "set",   builtin_set);
+  lenv_add_builtin(e, "set",   builtin_set);
+  lenv_add_builtin(e, "uplevel",   builtin_uplevel);
   lenv_add_builtin(e, "defun",   builtin_fun);
 
   /* Functions */
