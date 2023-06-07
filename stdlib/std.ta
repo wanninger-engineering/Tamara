@@ -55,7 +55,7 @@
 (defun [foldl f z l]
   [if (== l nil)
       [z]
-      [foldl f (f z (firstl)) (tail l)]])
+      [foldl f (f z (first l)) (tail l)]])
 
 (defun [sum l] [foldl + 0 l])
 (defun [product l] [foldl * 1 l])
