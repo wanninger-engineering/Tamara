@@ -4,128 +4,130 @@
 
 (printTest "Test of OOP")
 (printStep "Test of point class public getter")
- 
- 
-(def [point] (class []
- [lambda [x y] [list (list [x] x) (list [y] y)]]
- [
-     [[gety]
-         (get [y])]
-     [[getx]
-     (get [x])]
-     [[printx]
-     (print (get [x]))]
-     [[setx]
-     (modify [x] (arg 0 v))]
-     [[incrementedY]
-     (+ (get [y])  (arg 0 v) (arg 1 v) )]
- ]))
- 
- (def [a] (new point 4 5))
 
-(a [printx] nil)
-(assert (a [getx] [9]) 4 "Attribute retrieved correctly")
-(assert (a [gety] nil) 5 "Attribute retrieved correctly")
+
+(defun [createPoint x y]
+       [do
+       (def [this] [])
+       (=> [this] [x] x)
+       (=> [this] [y] y)
+       (=> [this] [getx] (lambda [self] [x]))
+       (=> [this] [gety] (lambda [self] [y]))
+       (=> [this] [printx] (lambda [self]
+			     [print x]))
+       (=> [this] [setx] (lambda [ x-in]
+			   [set [x] x-in]))
+       (=> [this] [incrementedY] (lambda [ in1 in2]
+				   [+ y in1 in2]))
+       ])
+ 
+ 
+ (def [a] (createPoint 4 5))
+
+(call [a] [printx] nil)
+(assert (call [a] [getx] 9) 4 "Attribute retrieved correctly")
+(assert (call [a] [gety] nil) 5 "Attribute retrieved correctly")
 (printStepResult)
 
 (printStep "Test of point class setter")
-(set [a] (a [setx] [2]))
-(a [printx] nil)
-(assert (a [getx] nil) 2 "Attribute retrieved correctly")
-(assert (a [gety] nil) 5 "Attribute retrieved correctly")
+(call [a] [setx] 2)
+(call [a] [printx] nil)
+(assert (-> [a] [x]) 2 "Attribute retrieved correctly")
+(assert (-> [a] [y]) 5 "Attribute retrieved correctly")
 (printStepResult)
 
 (printStep "Test of point class method with args")
- (def [b] (new point 4 5))
-(assert (b [incrementedY] [1 2]) 8 "Attribute retrieved modified")
+(def [b] (createPoint 4 5))
+(assert (call [b] [incrementedY] 1 2) 8 "Attribute retrieved modified")
 (printStepResult)
 
 (printStep "Internal Method call")
 
-(def [line] (class []
-  [lambda [p1 p2] [list (list [p1] p1) (list [p2] p2)]]
-  [
-    [[deltax]
-        (do (print "In own method")(- ((get [p1]) [getx] nil) ((get [p2]) [getx] nil)))]
-    [[deltax-abs]
-        (- 0 (self [deltax] nil))]
-  ]
-  )
-)
 
-(def [line1] (new line (new point 1 1) (new point 2 2)))
+(defun [createLine p1 p2]
+       [do
+       (def [this] [])
+       (=> [this] [p1] p1)
+       (=> [this] [p2] p2)
+       (=> [this] [deltax] (lambda [self]
+			     [- (call [p1] [getx] nil) (call [p2] [getx] nil)]))
+       (=> [this] [deltax-abs] (lambda [self]
+				 [- 0 (deltax nil)]))])
 
-(assert (line1 [deltax-abs] nil) 1 "Internal call correct")
+
+(def [line1] (createLine (createPoint 1 1) (createPoint 2 2)))
+
+(assert (call [line1] [deltax-abs] nil) 1 "Internal call correct")
 
 (printStepResult)
 
 (printStep "Inherited method")
 
-(def [person] (class []
-	       [lambda [name] [list (list [name] name)]]
-	       [
-	       [[getName]
-	       (get [name])]
-	       ]
-	       ))
+(defun [createPerson name]
+  [do
+  (def [this] [])
+  (=> [this] [name] name)
+  (=> [this] [getName] (lambda [self]
+			 [name]))
+  ])
 
-(def [employee] (class person
-		       [lambda [name wage ] [list (list [name] name) (list [wage] wage)]]
-		       [
-		       [[getWage]
-		       (get [wage])]
-		       ]
-		       ))
+(defun [createEmployee name wage]
+  [do
+  (def [this] (createPerson name))
+  (=> [this] [wage] wage)
+  ])
 
-(def [sascha] (new employee "sascha" 6000))
 
-(assert (sascha [getName] nil) "sascha" "Method correctly inherited")
+(def [sascha] (createEmployee "sascha" 6000))
+
+(assert (call [sascha] [getName] nil) "sascha" "Method correctly inherited")
+(assert (-> [sascha] [name]) "sascha" "Method correctly inherited")
 
 (printStepResult)
 
 (printStep "Abstract base class unimplemented")
 
-(def [person-base] (class []
-	       [lambda [name] [list (list [name] name)]]
-	       [
-	       [[getName] abstract]
-	       ]
-	       ))
+(defun [createPersonBase name]
+  [do
+  (def [this] [])
+  (=> [this] [name] name)
+  (=> [this] [getName] abstract)
+  ])
 
-(def [employee] (class person-base
-		       [lambda [name wage ] [list (list [name] name) (list [wage] wage)]]
-		       [
-		       [[getWage]
-		       (get [wage])]
-		       ]
-		       ))
+(defun [createEmployee name wage]
+  [do
+  (def [this] (createPersonBase name))
+  (=> [this] [wage] wage)
+  ])
 
-(def [tamara] (new employee "tamara" 6000))
-(assert (tamara [getName] nil) (error "MethodNotImplemented") "Method detected as not implemented")
+
+
+(def [tamara] (createEmployee "tamara" 6000))
+(assert (call [tamara] [getName] nil) (error "MethodNotImplemented") "Method detected as not implemented")
 
 (printStepResult)
 
 (printStep "Abstract base class fully implemented")
 
-(def [person-base] (class []
-	       [lambda [name] []]
-	       [
-	       [[getName] abstract]
-	       ]
-	       ))
+(defun [createPersonBase name]
+  [do
+  (def [this] [])
+  (=> [this] [name] name)
+  (=> [this] [getName] abstract)
+  ])
 
-(def [employee] (class person-base
-		       [lambda [name wage ] [list (list [name] name) (list [wage] wage)]]
-		       [
-		       [[getName]
-		       (get [name])]
-		       [[getWage]
-		       (get [wage])]
-		       ]
-		       ))
+(defun [createEmployee name wage]
+  [do
+  (def [this] (createPersonBase name))
+  (=> [this] [wage] wage)
+  (=> [this] [getName] (lambda [self]
+			 [name]))
+  ])
 
-(def [tamara] (new employee "tamara" 6000))
-(assert (tamara [getName] nil) "tamara" "Method correctly overwritten")
+
+
+(def [tamara] (createEmployee "tamara" 6000))
+(assert (call [tamara] [getName] nil) "tamara" "Method correctly overwritten")
 
 (printStepResult)
 
