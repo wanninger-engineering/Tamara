@@ -3,6 +3,7 @@ project (tamara)
 
 enable_testing()
 
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
 include_directories(include packages/include)
@@ -12,9 +13,10 @@ file(GLOB PACK_SOURCES "packages/src/*.c")
 
 add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MATH)
 
-add_executable(tamara ${SOURCES} ${PACK_SOURCES})
-target_link_libraries(tamara readline m curl)
+add_subdirectory(mimalloc)
 
+add_executable(tamara ${SOURCES} ${PACK_SOURCES})
+target_link_libraries(tamara PUBLIC readline m curl mimalloc-static)
 
 
 file(GLOB STDLIB "stdlib/*.ta")
