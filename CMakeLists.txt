@@ -6,17 +6,18 @@ enable_testing()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
-include_directories(include packages/include)
+include_directories(include packages/include libs)
 
 file(GLOB SOURCES "src/*.c")
 file(GLOB PACK_SOURCES "packages/src/*.c")
 
-add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MATH)
+add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MATH -DPACKAGE_GENANN)
 
 add_subdirectory(mimalloc)
+add_subdirectory(libs)
 
 add_executable(tamara ${SOURCES} ${PACK_SOURCES})
-target_link_libraries(tamara PUBLIC readline m curl mimalloc-static)
+target_link_libraries(tamara PUBLIC readline curl mimalloc-static genann m)
 
 
 file(GLOB STDLIB "stdlib/*.ta")
