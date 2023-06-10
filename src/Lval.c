@@ -175,6 +175,15 @@ lval* lval_num(double x)
   return v;
 }
 
+/* Construct a new object LVAL */
+lval* lval_object(void* x)
+{
+  lval* v = malloc(sizeof(lval));
+  v->type = LVAL_OBJECT;
+  v->object = x;
+  return v;
+}
+
 /* Construct a new boolean LVAL */
 lval* lval_bool(bool x)
 {
@@ -306,7 +315,9 @@ int lval_eq(lval* x, lval* y) {
       case LVAL_NUM: 
         result = (x->num == y->num);
         break;
-
+      case LVAL_OBJECT:
+        result = (x->object == y->object);
+        break;
       /* Compare String Values */
       case LVAL_ERR: 
         result = (strcmp(x->err, y->err) == 0);
@@ -536,7 +547,8 @@ lval* lval_copy(lval* v)
     case LVAL_NUM:
     case LVAL_BOOL:
       x->num = v->num; break;
-
+    case LVAL_OBJECT:
+      x->object = v->object; break;
     /* Copy strings using malloc and strcpy */
     case LVAL_ERR:
       x->err = malloc(strlen(v->err) +1);
@@ -605,6 +617,9 @@ void lval_print(lval* v)
     case LVAL_NUM:
       printf("%f", v->num);
       break;
+    case LVAL_OBJECT:
+      printf("<Tamara Object> %x", v->object);
+      break;
     case LVAL_BOOL:
       if (((int)v->num) == true)
       {
@@ -655,6 +670,7 @@ const char* ltype_name(int t) {
   switch(t) {
   case LVAL_FUN: return "Function";
   case LVAL_NUM: return "Number";
+  case LVAL_OBJECT: return "Object";
   case LVAL_ERR: return "Error";
   case LVAL_SYM: return "Symbol";
   case LVAL_SEXPR: return "S-Expression";

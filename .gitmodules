@@ -1,0 +1,6 @@
+[submodule "mimalloc"]
+	path = mimalloc
+	url = https://github.com/microsoft/mimalloc
+[submodule "libs/genann"]
+	path = libs/genann
+	url = https://github.com/codeplea/genann.git

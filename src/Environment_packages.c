@@ -16,6 +16,10 @@
 #include "System.h"
 #endif
 
+#ifdef PACKAGE_GENANN
+#include "genann_package.h"
+#endif
+
 struct lenv_packages packages []=
   {
 #ifdef PACKAGE_FILE
@@ -31,7 +35,11 @@ struct lenv_packages packages []=
 #endif
    
 #ifdef PACKAGE_OS
-   { "os", lenv_reg_os}
+   { "os", lenv_reg_os},
+#endif
+
+#ifdef PACKAGE_GENANN
+   { "genann", lenv_reg_genann},
 #endif
   };
 
@@ -79,5 +87,13 @@ void lenv_reg_os(lenv* e)
 {
   lenv_add_builtin(e, "system",   builtin_system);
   lenv_add_builtin(e, "chdir", builtin_chdir);
+}
+#endif
+
+
+#ifdef PACKAGE_GENANN
+void lenv_reg_genann(lenv* e)
+{
+  lenv_add_builtin(e, "genann->init",   genann_package_init);
 }
 #endif

@@ -9,5 +9,8 @@ void lenv_reg_math(lenv* e);
 #ifdef PACKAGE_OS
 void lenv_reg_os(lenv* e);
 #endif
+#ifdef PACKAGE_GENANN
+void lenv_reg_genann(lenv* e);
+#endif
 
 #endif /* _ENVIRONMENT_H_ */

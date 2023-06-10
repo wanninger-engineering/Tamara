@@ -40,7 +40,7 @@ typedef enum { false, true } bool;
 
 
 /* lval types */
-enum { LVAL_NUM, LVAL_ERR, LVAL_SYM, LVAL_STR, LVAL_SEXPR, LVAL_QEXPR, LVAL_FUN, LVAL_BOOL, LVAL_FILE };
+enum { LVAL_NUM, LVAL_ERR, LVAL_SYM, LVAL_STR, LVAL_SEXPR, LVAL_QEXPR, LVAL_FUN, LVAL_BOOL, LVAL_FILE, LVAL_OBJECT };
 
 /* lval struct */
 typedef struct lval{
@@ -52,6 +52,7 @@ typedef struct lval{
   char* sym;
   char* str;
   FILE* file;
+  void* object;
 
   /* Function */
   lbuiltin builtin;
@@ -84,7 +85,7 @@ lval* lval_lambda(lenv* e, lval* formals, lval* body);
 lval* lval_bool(bool x);
 lval* lval_str(const char* s);
 lval* lval_file(const char* path, const char* mode);
-
+lval* lval_object(void* x);
 
 
 lval* lval_read(mpc_ast_t* t);
