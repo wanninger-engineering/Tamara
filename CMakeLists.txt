@@ -9,14 +9,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 include_directories(include packages/include libs)
 
 file(GLOB SOURCES "src/*.c")
-#file(GLOB PACK_SOURCES "packages/src/*.c")
-
-#add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MATH)
-
-add_subdirectory(mimalloc)
-add_subdirectory(libs)
-
-target_link_libraries(tamara mimalloc-static)
 
 add_executable(tamara ${SOURCES} ${PACK_SOURCES})
 

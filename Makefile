@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake
+CMAKE_COMMAND = /home/swanninger/applications/cmake-3.25.0-rc2-linux-x86_64/bin/cmake
 
 # The command to remove a file.
-RM = /home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -E rm -f
+RM = /home/swanninger/applications/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wanningersascha/projects/Tamara
+CMAKE_SOURCE_DIR = /home/swanninger/Tamara
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wanningersascha/projects/Tamara
+CMAKE_BINARY_DIR = /home/swanninger/Tamara
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/wanningersascha/projects/Tamara
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/ctest --force-new-ctest-process $(ARGS)
+	/home/swanninger/applications/cmake-3.25.0-rc2-linux-x86_64/bin/ctest --force-new-ctest-process $(ARGS)
 .PHONY : test
 
 # Special rule for the target test
@@ -78,7 +78,7 @@ test/fast: test
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/swanninger/applications/cmake-3.25.0-rc2-linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -88,63 +88,18 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/swanninger/applications/cmake-3.25.0-rc2-linux-x86_64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/wanningersascha/Anwendungen/cmake-3.25.0-rc2-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wanningersascha/projects/Tamara/CMakeFiles /home/wanningersascha/projects/Tamara//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/swanninger/Tamara/CMakeFiles /home/swanninger/Tamara//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wanningersascha/projects/Tamara/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/swanninger/Tamara/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -183,230 +138,6 @@ tamara: cmake_check_build_system
 tamara/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/build
 .PHONY : tamara/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc
-
-# Build rule for target.
-mimalloc: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc
-.PHONY : mimalloc
-
-# fast build rule for target.
-mimalloc/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc.dir/build.make mimalloc/CMakeFiles/mimalloc.dir/build
-.PHONY : mimalloc/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-static
-
-# Build rule for target.
-mimalloc-static: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-static
-.PHONY : mimalloc-static
-
-# fast build rule for target.
-mimalloc-static/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-static.dir/build.make mimalloc/CMakeFiles/mimalloc-static.dir/build
-.PHONY : mimalloc-static/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-obj
-
-# Build rule for target.
-mimalloc-obj: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-obj
-.PHONY : mimalloc-obj
-
-# fast build rule for target.
-mimalloc-obj/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-obj.dir/build.make mimalloc/CMakeFiles/mimalloc-obj.dir/build
-.PHONY : mimalloc-obj/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-obj-target
-
-# Build rule for target.
-mimalloc-obj-target: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-obj-target
-.PHONY : mimalloc-obj-target
-
-# fast build rule for target.
-mimalloc-obj-target/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-obj-target.dir/build.make mimalloc/CMakeFiles/mimalloc-obj-target.dir/build
-.PHONY : mimalloc-obj-target/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-test-api
-
-# Build rule for target.
-mimalloc-test-api: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-test-api
-.PHONY : mimalloc-test-api
-
-# fast build rule for target.
-mimalloc-test-api/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-test-api.dir/build.make mimalloc/CMakeFiles/mimalloc-test-api.dir/build
-.PHONY : mimalloc-test-api/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-test-api-fill
-
-# Build rule for target.
-mimalloc-test-api-fill: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-test-api-fill
-.PHONY : mimalloc-test-api-fill
-
-# fast build rule for target.
-mimalloc-test-api-fill/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-test-api-fill.dir/build.make mimalloc/CMakeFiles/mimalloc-test-api-fill.dir/build
-.PHONY : mimalloc-test-api-fill/fast
-
-#=============================================================================
-# Target rules for targets named mimalloc-test-stress
-
-# Build rule for target.
-mimalloc-test-stress: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mimalloc-test-stress
-.PHONY : mimalloc-test-stress
-
-# fast build rule for target.
-mimalloc-test-stress/fast:
-	$(MAKE) $(MAKESILENT) -f mimalloc/CMakeFiles/mimalloc-test-stress.dir/build.make mimalloc/CMakeFiles/mimalloc-test-stress.dir/build
-.PHONY : mimalloc-test-stress/fast
-
-#=============================================================================
-# Target rules for targets named genann
-
-# Build rule for target.
-genann: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 genann
-.PHONY : genann
-
-# fast build rule for target.
-genann/fast:
-	$(MAKE) $(MAKESILENT) -f libs/CMakeFiles/genann.dir/build.make libs/CMakeFiles/genann.dir/build
-.PHONY : genann/fast
-
-packages/src/Curl.o: packages/src/Curl.c.o
-.PHONY : packages/src/Curl.o
-
-# target to build an object file
-packages/src/Curl.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Curl.c.o
-.PHONY : packages/src/Curl.c.o
-
-packages/src/Curl.i: packages/src/Curl.c.i
-.PHONY : packages/src/Curl.i
-
-# target to preprocess a source file
-packages/src/Curl.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Curl.c.i
-.PHONY : packages/src/Curl.c.i
-
-packages/src/Curl.s: packages/src/Curl.c.s
-.PHONY : packages/src/Curl.s
-
-# target to generate assembly for a file
-packages/src/Curl.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Curl.c.s
-.PHONY : packages/src/Curl.c.s
-
-packages/src/File.o: packages/src/File.c.o
-.PHONY : packages/src/File.o
-
-# target to build an object file
-packages/src/File.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/File.c.o
-.PHONY : packages/src/File.c.o
-
-packages/src/File.i: packages/src/File.c.i
-.PHONY : packages/src/File.i
-
-# target to preprocess a source file
-packages/src/File.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/File.c.i
-.PHONY : packages/src/File.c.i
-
-packages/src/File.s: packages/src/File.c.s
-.PHONY : packages/src/File.s
-
-# target to generate assembly for a file
-packages/src/File.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/File.c.s
-.PHONY : packages/src/File.c.s
-
-packages/src/Maths.o: packages/src/Maths.c.o
-.PHONY : packages/src/Maths.o
-
-# target to build an object file
-packages/src/Maths.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Maths.c.o
-.PHONY : packages/src/Maths.c.o
-
-packages/src/Maths.i: packages/src/Maths.c.i
-.PHONY : packages/src/Maths.i
-
-# target to preprocess a source file
-packages/src/Maths.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Maths.c.i
-.PHONY : packages/src/Maths.c.i
-
-packages/src/Maths.s: packages/src/Maths.c.s
-.PHONY : packages/src/Maths.s
-
-# target to generate assembly for a file
-packages/src/Maths.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/Maths.c.s
-.PHONY : packages/src/Maths.c.s
-
-packages/src/System.o: packages/src/System.c.o
-.PHONY : packages/src/System.o
-
-# target to build an object file
-packages/src/System.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/System.c.o
-.PHONY : packages/src/System.c.o
-
-packages/src/System.i: packages/src/System.c.i
-.PHONY : packages/src/System.i
-
-# target to preprocess a source file
-packages/src/System.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/System.c.i
-.PHONY : packages/src/System.c.i
-
-packages/src/System.s: packages/src/System.c.s
-.PHONY : packages/src/System.s
-
-# target to generate assembly for a file
-packages/src/System.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/System.c.s
-.PHONY : packages/src/System.c.s
-
-packages/src/genann_package.o: packages/src/genann_package.c.o
-.PHONY : packages/src/genann_package.o
-
-# target to build an object file
-packages/src/genann_package.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/genann_package.c.o
-.PHONY : packages/src/genann_package.c.o
-
-packages/src/genann_package.i: packages/src/genann_package.c.i
-.PHONY : packages/src/genann_package.i
-
-# target to preprocess a source file
-packages/src/genann_package.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/genann_package.c.i
-.PHONY : packages/src/genann_package.c.i
-
-packages/src/genann_package.s: packages/src/genann_package.c.s
-.PHONY : packages/src/genann_package.s
-
-# target to generate assembly for a file
-packages/src/genann_package.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tamara.dir/build.make CMakeFiles/tamara.dir/packages/src/genann_package.c.s
-.PHONY : packages/src/genann_package.c.s
 
 src/Builtins.o: src/Builtins.c.o
 .PHONY : src/Builtins.o
@@ -583,36 +314,9 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... mimalloc-obj-target"
-	@echo "... genann"
-	@echo "... mimalloc"
-	@echo "... mimalloc-obj"
-	@echo "... mimalloc-static"
-	@echo "... mimalloc-test-api"
-	@echo "... mimalloc-test-api-fill"
-	@echo "... mimalloc-test-stress"
 	@echo "... tamara"
-	@echo "... packages/src/Curl.o"
-	@echo "... packages/src/Curl.i"
-	@echo "... packages/src/Curl.s"
-	@echo "... packages/src/File.o"
-	@echo "... packages/src/File.i"
-	@echo "... packages/src/File.s"
-	@echo "... packages/src/Maths.o"
-	@echo "... packages/src/Maths.i"
-	@echo "... packages/src/Maths.s"
-	@echo "... packages/src/System.o"
-	@echo "... packages/src/System.i"
-	@echo "... packages/src/System.s"
-	@echo "... packages/src/genann_package.o"
-	@echo "... packages/src/genann_package.i"
-	@echo "... packages/src/genann_package.s"
 	@echo "... src/Builtins.o"
 	@echo "... src/Builtins.i"
 	@echo "... src/Builtins.s"
