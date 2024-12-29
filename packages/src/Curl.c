@@ -6,6 +6,7 @@
  */
 
 
+#ifdef PACKAGE_CURL
 #include <curl/curl.h>
 
 #include "Curl.h"
@@ -88,3 +89,4 @@ lval* curl_url2file(lenv* e, lval* a) {
   
   return result;
 }
+#endif

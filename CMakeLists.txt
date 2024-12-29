@@ -16,6 +16,8 @@ add_definitions(-DLINUX -DPACKAGE_OS -DPACKAGE_CURL -DPACKAGE_FILE -DPACKAGE_MAT
 add_subdirectory(mimalloc)
 add_subdirectory(libs)
 
+add_compile_options(-ggdb3 )
+
 add_executable(tamara ${SOURCES} ${PACK_SOURCES})
 target_link_libraries(tamara PUBLIC readline curl mimalloc-static genann m)
 

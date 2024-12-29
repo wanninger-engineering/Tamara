@@ -1,5 +1,7 @@
 #include "File.h"
 
+#ifdef PACKAGE_FILE
+
 lval* builtin_fileOpen(lenv* e, lval* a)
 {
   LASSERT_NUM("fileOpen", a, 2);
@@ -69,3 +71,4 @@ lval* builtin_writechar(lenv* e, lval* a)
   
   return result;
 }
+#endif

@@ -1,4 +1,6 @@
 
+#ifdef PACKAGE_FILE
+
 #ifndef _FILE_H_
 #define _FILE_H_
 #include <stdio.h>
@@ -19,4 +21,6 @@ lval* builtin_fileClose(lenv* e, lval* a);
 lval* builtin_readchar(lenv* e, lval* a);
 
 lval* builtin_writechar(lenv* e, lval* a);
+#endif
+
 #endif

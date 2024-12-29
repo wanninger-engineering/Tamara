@@ -1,3 +1,5 @@
+#ifdef PACKAGE_OS
+
 #ifndef _SYSTEM_H_
 #define _SYSTEM_H_
 
@@ -14,5 +16,7 @@
 lval* builtin_chdir(lenv* e, lval* a);
 lval* builtin_system(lenv* e, lval* a);
 
+
+#endif
 
 #endif

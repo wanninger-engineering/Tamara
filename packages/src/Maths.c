@@ -7,6 +7,7 @@
  
 #include "Maths.h"
 
+#ifdef PACKAGE_MATH
 
 lval* math_rand(lenv* e, lval* a)
 {
@@ -18,3 +19,5 @@ lval* math_rand(lenv* e, lval* a)
 	lval_del(a);
 	return result;
 }
+
+#endif

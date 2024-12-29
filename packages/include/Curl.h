@@ -5,6 +5,8 @@
  *      Author: Sascha Wanninger
  */
 
+#ifdef PACKAGE_CURL
+
 #ifndef _CURL_H_
 #define _CURL_H_
 #include <stdio.h>
@@ -23,4 +25,5 @@
 
 lval* curl_checkErrCode(lenv* e, lval* a);
 lval* curl_url2file(lenv* e, lval* a);
+#endif
 #endif

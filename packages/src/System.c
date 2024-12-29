@@ -1,5 +1,6 @@
 #include "System.h"
 
+#ifdef PACKAGE_OS
 
 lval* builtin_system(lenv* e, lval* a)
 {
@@ -27,3 +28,5 @@ lval* builtin_chdir(lenv* e, lval* a)
 
   return v;
 }
+
+#endif

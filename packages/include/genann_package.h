@@ -5,6 +5,8 @@
  *      Author: Sascha Wanninger
  */
 
+#ifdef PACKAGE_GENANN
+
 #ifndef _GENANN_PACKAGE_H_
 #define _GENANN_PACKAGE_H_
 
@@ -21,5 +23,7 @@
 #include "genann/genann.h"
 
 lval* genann_package_init(lenv* e, lval* a);
+
+#endif
 
 #endif

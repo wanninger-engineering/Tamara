@@ -7,6 +7,7 @@
  
 #include "genann_package.h"
 
+#ifdef PACKAGE_GENANN
 genann *ann = NULL;
 
 
@@ -35,3 +36,5 @@ lval* genann_package_init(lenv* e, lval* a)
 	lval* result = lval_object(ann);
 	return result;
 }
+
+#endif
