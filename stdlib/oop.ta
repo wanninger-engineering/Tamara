@@ -19,24 +19,14 @@
 	   )
        ])
 
-
-(defun [-> obj attr]
+(defun [-> objref attr]
        [eval (filter (lambda [x] [!= () x])
-		     (map (lambda [x] [if (== attr (first x)) [second x] []])
-			  (eval obj)))])
+             (map (lambda [x] [if (== attr (first x)) [second x] []])
+                  (eval objref)))])
 
 (defun [call objref attr & param]
-       [do
-       (def [level-cnt] 2)
-       (map
-	(lambda [object-attribute] [do
-	  	  (uplevel level-cnt (join [def] (list (first object-attribute)) (list (second object-attribute))))
-	  (set [level-cnt] (+ level-cnt 1))
-		   ])
-	      (eval objref))
-       (def [result] (curry (eval attr) param))
-       (set objref (map (lambda [object-attribute] [ (list (first object-attribute) (eval (first object-attribute)))]) (eval objref)))
-       (result)
-       ])
+       [eval (join (list (-> objref attr) objref) param)])
+
 
 (def [abstract] (error "MethodNotImplemented"))
+

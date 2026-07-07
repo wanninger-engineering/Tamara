@@ -1,33 +1,29 @@
 (require "unittest.ta")
-
 (require "oop.ta")
 
 (printTest "Test of OOP")
 (printStep "Test of point class public getter")
-
 
 (defun [createPoint x y]
        [do
        (def [this] [])
        (=> [this] [x] x)
        (=> [this] [y] y)
-       (=> [this] [getx] (lambda [self] [x]))
-       (=> [this] [gety] (lambda [self] [y]))
-       (=> [this] [printx] (lambda [self]
-			     [print x]))
-       (=> [this] [setx] (lambda [ x-in]
-			   [set [x] x-in]))
-       (=> [this] [incrementedY] (lambda [ in1 in2]
-				   [+ y in1 in2]))
+       (=> [this] [getx] (lambda [self dummy] [(-> self [x])]))
+       (=> [this] [gety] (lambda [self dummy] [(-> self [y])]))
+       (=> [this] [printx] (lambda [self dummy] [print (-> self [x])]))
+       (=> [this] [setx] (lambda [self x-in] [=> self [x] x-in]))
+       ;; Methode mit Parametern
+       (=> [this] [incrementedY] (lambda [self in1 in2] [+ (-> self [y]) in1 in2]))
        ])
  
- 
- (def [a] (createPoint 4 5))
+(def [a] (createPoint 4 5))
 
 (call [a] [printx] nil)
 (assert (call [a] [getx] 9) 4 "Attribute retrieved correctly")
 (assert (call [a] [gety] nil) 5 "Attribute retrieved correctly")
 (printStepResult)
+
 
 (printStep "Test of point class setter")
 (call [a] [setx] 2)
@@ -36,39 +32,42 @@
 (assert (-> [a] [y]) 5 "Attribute retrieved correctly")
 (printStepResult)
 
+
 (printStep "Test of point class method with args")
 (def [b] (createPoint 4 5))
 (assert (call [b] [incrementedY] 1 2) 8 "Attribute retrieved modified")
 (printStepResult)
 
+
 (printStep "Internal Method call")
-
-
-(defun [createLine p1 p2]
+(defun [createLine p1-ref p2-ref]
        [do
        (def [this] [])
-       (=> [this] [p1] p1)
-       (=> [this] [p2] p2)
-       (=> [this] [deltax] (lambda [self]
-			     [- (call [p1] [getx] nil) (call [p2] [getx] nil)]))
-       (=> [this] [deltax-abs] (lambda [self]
-				 [- 0 (deltax nil)]))])
+       (=> [this] [p1] p1-ref)
+       (=> [this] [p2] p2-ref)
+       
+       (=> [this] [deltax] (lambda [self dummy]
+                 [- (call (-> self [p1]) [getx] nil) 
+                    (call (-> self [p2]) [getx] nil)]))
+                    
+       (=> [this] [deltax-abs] (lambda [self dummy]
+                 [- 0 (call self [deltax] nil)]))])
 
+(def [point1] (createPoint 1 1))
+(def [point2] (createPoint 2 2))
 
-(def [line1] (createLine (createPoint 1 1) (createPoint 2 2)))
+(def [line1] (createLine [point1] [point2]))
 
 (assert (call [line1] [deltax-abs] nil) 1 "Internal call correct")
-
 (printStepResult)
 
-(printStep "Inherited method")
 
+(printStep "Inherited method")
 (defun [createPerson name]
   [do
   (def [this] [])
   (=> [this] [name] name)
-  (=> [this] [getName] (lambda [self]
-			 [name]))
+  (=> [this] [getName] (lambda [self dummy] [(-> self [name])]))
   ])
 
 (defun [createEmployee name wage]
@@ -77,16 +76,14 @@
   (=> [this] [wage] wage)
   ])
 
-
 (def [sascha] (createEmployee "sascha" 6000))
 
 (assert (call [sascha] [getName] nil) "sascha" "Method correctly inherited")
 (assert (-> [sascha] [name]) "sascha" "Method correctly inherited")
-
 (printStepResult)
 
-(printStep "Abstract base class unimplemented")
 
+(printStep "Abstract base class unimplemented")
 (defun [createPersonBase name]
   [do
   (def [this] [])
@@ -99,16 +96,13 @@
   (def [this] (createPersonBase name))
   (=> [this] [wage] wage)
   ])
-
-
 
 (def [tamara] (createEmployee "tamara" 6000))
 (assert (call [tamara] [getName] nil) (error "MethodNotImplemented") "Method detected as not implemented")
-
 (printStepResult)
 
-(printStep "Abstract base class fully implemented")
 
+(printStep "Abstract base class fully implemented")
 (defun [createPersonBase name]
   [do
   (def [this] [])
@@ -120,15 +114,11 @@
   [do
   (def [this] (createPersonBase name))
   (=> [this] [wage] wage)
-  (=> [this] [getName] (lambda [self]
-			 [name]))
+  (=> [this] [getName] (lambda [self dummy] [(-> self [name])]))
   ])
-
-
 
 (def [tamara] (createEmployee "tamara" 6000))
 (assert (call [tamara] [getName] nil) "tamara" "Method correctly overwritten")
-
 (printStepResult)
 
 (printTestResult)
