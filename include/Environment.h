@@ -34,6 +34,8 @@ void lenv_def(lenv* e, lval* k, lval* v);
 lval* lenv_set(lenv* e, lval* k, lval* v);
 lenv* lenv_copy(lenv* e);
 void lenv_toKill(lenv* e);
+void lenv_rem(lenv* e, lval* k);
+void lenv_rem_def(lenv* e, lval* k);
 
 void lenv_register(lenv* e, char* name);
 

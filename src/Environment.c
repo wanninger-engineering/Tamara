@@ -131,6 +131,29 @@ lenv* lenv_copy(lenv* e) {
   return n;
 }
 
+void lenv_rem(lenv* e, lval* k) {
+  for (unsigned int i = 0; i < e->count; i++) {
+    if (strcmp(e->syms[i], k->sym) == 0) {
+      /* Speicher für Symbol und Wert freigeben */
+      free(e->syms[i]);
+      lval_del(e->vals[i]);
+
+      /* Arrays verschieben, um die Lücke zu schließen */
+      memmove(&e->syms[i], &e->syms[i+1], sizeof(char*) * (e->count - i - 1));
+      memmove(&e->vals[i], &e->vals[i+1], sizeof(lval*) * (e->count - i - 1));
+      
+      e->count--;
+      return;
+    }
+  }
+}
+
+void lenv_rem_def(lenv* e, lval* k) {
+  while (e->par) { e = e->par; }
+  lenv_rem(e, k);
+}
+
+
 
 void lenv_add_builtin(lenv* e, const char* name, lbuiltin func) {
   lval* k = lval_sym(name);
@@ -177,11 +200,13 @@ void lenv_add_builtins(lenv* e) {
 
   /* Variable Functions */
   lenv_add_builtin(e, "put",  builtin_global_def);
+  lenv_add_builtin(e, "delete", builtin_delete);
   lenv_add_builtin(e, "=",  builtin_local_def);
   lenv_add_builtin(e, "def",  builtin_local_def);
   lenv_add_builtin(e, "set",   builtin_set);
   lenv_add_builtin(e, "uplevel",   builtin_uplevel);
   lenv_add_builtin(e, "defun",   builtin_fun);
+
 
   /* Functions */
   lenv_add_builtin(e, "lambda", builtin_lambda);

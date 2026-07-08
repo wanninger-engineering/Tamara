@@ -825,6 +825,28 @@ lval* builtin_var(lenv* e, lval* a, const char* func) {
   return result;
 }
 
+lval* builtin_delete(lenv* e, lval* a) {
+  LASSERT_NUM("delete", a, 1);
+  
+  LASSERT_TYPE("delete", a, 0, LVAL_QEXPR);
+  
+  lval* syms = a->cell[0];
+  
+  for (int i = 0; i < syms->count; i++) {
+    LASSERT(a, (syms->cell[i]->type == LVAL_SYM),
+            "Function 'delete' cannot delete non-symbol. "
+            "Got %s, Expected %s.",
+            ltype_name(syms->cell[i]->type), ltype_name(LVAL_SYM));
+  }
+  
+  for (int i = 0; i < syms->count; i++) {
+    lenv_rem_def(e, syms->cell[i]);
+  }
+  
+  lval_del(a);
+  return lval_sexpr();
+}
+
 lval* builtin_lambda(lenv* e, lval* a) {
   /* Check Two arguments, each of which are Q-Expressions */
   LASSERT_NUM("lambda", a, 2);

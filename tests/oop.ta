@@ -62,6 +62,62 @@
 (printStepResult)
 
 
+(printStep "New operator for creating anonymous objects")
+(defun [createLine x1 x2 y1 y2]
+       [do
+       (def [this] [])
+       (=> [this] [p1] (new (createPoint x1 x2)))
+       (=> [this] [p2] (new (createPoint y1 y2)))
+       
+       (=> [this] [deltax] (lambda [self dummy]
+                 [- (call (-> self [p1]) [getx] nil) 
+                    (call (-> self [p2]) [getx] nil)]))
+                    
+       (=> [this] [deltax-abs] (lambda [self dummy]
+                 [- 0 (call self [deltax] nil)]))])
+
+(def [line1] (createLine 1 1 2 2))
+
+(assert (call [line1] [deltax-abs] nil) 1 "Internal call correct")
+(printStepResult)
+
+
+(printStep "Test creation and manual destruction")
+(def [p1] (new (createPoint 5 10)))
+
+(assert (call p1 [getx] nil) 5 "Point created and accessible")
+
+(delete [p1])
+
+(assert (type (eval [p1])) "Error" "Object successfully deleted (Symbol unbound)")
+(printStepResult)
+
+(printStep "Test recursive destruction of composite objects")
+(defun [createLine-destructible x1 x2 y1 y2]
+       [do
+       (def [this] [])
+       (=> [this] [p1-sym] (new (createPoint x1 x2)))
+       (=> [this] [p2-sym] (new (createPoint y1 y2)))
+       
+       ;; Destruktor Methode für das Line-Objekt
+       (=> [this] [destroy] (lambda [self dummy] 
+           [do
+             (delete (list (-> self [p1-sym])))
+             (delete (list (-> self [p2-sym])))
+           ]))
+       ])
+
+(def [line1] (new (createLine-destructible 0 0 1 1)))
+
+;; 1. Cleanup of child
+(call [line1] [destroy] nil)
+
+;; 2. Cleanup of parent
+(delete [line1])
+
+(assert (type (eval [line1])) "Error" "Line object successfully deleted")
+(printStepResult)
+
 (printStep "Inherited method")
 (defun [createPerson name]
   [do

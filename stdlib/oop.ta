@@ -30,3 +30,13 @@
 
 (def [abstract] (error "MethodNotImplemented"))
 
+(def [__obj-cnt] 0)
+
+(defun [new obj] 
+	[do
+    	(def [sym] (str->qexpr (append "__obj_" (num->str __obj-cnt))))
+		(set [__obj-cnt] (+ __obj-cnt 1))
+		(put sym obj)
+		sym
+	]
+)
